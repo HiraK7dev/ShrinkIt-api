@@ -1,9 +1,10 @@
 import { Url } from "../models/url.models.js";
 import { nanoid } from "nanoid";
 
-const shortId = nanoid(9);
-
 async function createUrl(req, res) {
+
+    const shortId = nanoid(9);
+    
     try {
         const result = await Url.create({
             shortId: shortId,
@@ -15,6 +16,8 @@ async function createUrl(req, res) {
         });
     } catch (error) {
         res.status(500).json({ message: 'error' });
+        console.log(error);
+        
     }
 }
 
