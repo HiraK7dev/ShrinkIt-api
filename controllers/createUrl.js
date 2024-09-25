@@ -8,7 +8,6 @@ async function createUrl(req, res) {
         const result = await Url.create({
             shortId: shortId,
             redirectUrl: req.body.redirectUrl,
-            log: []
         });
         res.status(201).json({
             message: 'success',

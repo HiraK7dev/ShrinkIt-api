@@ -1,12 +1,14 @@
 import { Url } from "../models/url.models.js";
 
-async function redirectUrl(req, res){
+async function analysis(req, res) {
     const { id } = req.params;
-    if((await Url.findOne({ "shortId": id })) !== null) {
+    if ((await Url.findOne({ "shortId": id })) !== null) {
         try {
             const result = await Url.findOne({ "shortId": id });
-            const query = await Url.findOneAndUpdate({ "shortId": id }, {$push: {"log": {"time": Date.now()}}})
-            res.status(302).redirect(result.redirectUrl);
+            res.status(200).json({
+                message: 'success',
+                clicks: result.log.length
+            });
         } catch (error) {
             res.status(500).json({ message: 'error' });
         }
@@ -15,4 +17,4 @@ async function redirectUrl(req, res){
     }
 }
 
-export default redirectUrl;
+export default analysis;

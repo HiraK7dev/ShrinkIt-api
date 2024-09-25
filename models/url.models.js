@@ -13,7 +13,7 @@ const urlSchema = new mongoose.Schema({
     log: [
         {
             time: {
-                type: Number
+                type: Number,
             }
         }
     ]

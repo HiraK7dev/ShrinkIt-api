@@ -1,12 +1,11 @@
 import { Url } from "../models/url.models.js";
 
-async function redirectUrl(req, res){
+async function deleteUrl(req, res){
     const { id } = req.params;
     if((await Url.findOne({ "shortId": id })) !== null) {
         try {
-            const result = await Url.findOne({ "shortId": id });
-            const query = await Url.findOneAndUpdate({ "shortId": id }, {$push: {"log": {"time": Date.now()}}})
-            res.status(302).redirect(result.redirectUrl);
+            const result = await Url.deleteOne({ "shortId": id });
+            res.status(200).json({ message: "success" });
         } catch (error) {
             res.status(500).json({ message: 'error' });
         }
@@ -15,4 +14,4 @@ async function redirectUrl(req, res){
     }
 }
 
-export default redirectUrl;
+export default deleteUrl;
