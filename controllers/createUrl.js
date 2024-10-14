@@ -3,7 +3,8 @@ import { nanoid } from "nanoid";
 
 async function createUrl(req, res) {
 
-    const shortId = nanoid(9);
+    const size = req.body.size || 9;
+    const shortId = nanoid(size);
     
     try {
         const result = await Url.create({
